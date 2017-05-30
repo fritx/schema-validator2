@@ -15,6 +15,7 @@ let { validate } = require('schema-validator2')
 let { ObjectID } = require('mongodb')
 
 let schema = {
+  nested: { schema: anotherSchema },
   _id: { type: ObjectID, required: true }
 }
 
