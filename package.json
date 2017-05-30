@@ -1,0 +1,19 @@
+{
+  "name": "schema-validator2",
+  "description": "Validate JSON Objects with schema defined.",
+  "version": "0.0.1",
+  "main": "validator.js",
+  "repository": "https://github.com/fritx/schema-validator2",
+  "scripts": {
+    "report": "nyc report --reporter=html",
+    "test": "nyc ava test"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "mongodb": "^2.2.27",
+    "nyc": "^10.3.2"
+  }
+}
