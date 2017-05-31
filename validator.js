@@ -29,17 +29,35 @@ function validate ({ schema, data, partial }) {
       }
     }
 
-    if (r.type && r.type.schema) {
-      let rs = r.type.validate({ data: v })
+    if (r.schema) {
+      let rs = validate({
+        schema: r.schema,
+        data: v
+      })
       if (rs) {
         return `'${k}': ${rs}`
       }
     } else {
-      if (!(v instanceof r.type)) {
+      // √ new String('') instanceof String
+      // × 'xyz' instanceof String
+      // 不能只用instanceof
+      // if (!()) {
+      if (!isType(v, r.type)) {
         return `'${k}' is not a/an '${r.type.name}'`
       }
     }
   }
+}
+
+function isType (v, type) {
+  if (v instanceof type) {
+    return true
+  }
+  let isX = _[`is${type.name}`]
+  if (isX && isX(v)) {
+    return true
+  }
+  return false
 }
 
 // _.without 必须是 _.without(arr, 1, 2, 3) 的形式
