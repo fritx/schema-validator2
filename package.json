@@ -1,7 +1,7 @@
 {
   "name": "schema-validator2",
   "description": "Validate JSON Objects with schema defined.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "validator.js",
   "repository": "https://github.com/fritx/schema-validator2",
   "scripts": {

@@ -41,10 +41,11 @@ let rs = validate({
 
 Coverage:
 
-<img src="coverage.png">
+<img src="https://github.com/fritx/schema-validator2/raw/master/coverage.png">
 
 Todo:
 
+- Array typed
 - Babel build for lower node versions
 - More test cases
 - [Travis CI & Coveralls](https://github.com/avajs/ava/blob/master/docs/recipes/code-coverage.md#hosted-coverage)
