@@ -15,8 +15,8 @@ let { validate } = require('schema-validator2')
 let { ObjectID } = require('mongodb')
 
 let schema = {
-  arr: { type: Array, element: { type: Number } },
   nested: { schema: anotherSchema },
+  arr: { type: Array, element: { type: Number } },
   _id: { type: ObjectID, required: true }
 }
 
@@ -37,12 +37,12 @@ let rs = validate({
 // - rs = extra keys: ['a', 'b']
 // - rs = 'a' is required
 // - rs = 'a' is not a/an 'Date'
-// - Error: keys including '.' are not supported yet: 'a.b'
+// - Error: dot keys are not supported: 'a.b'
 ```
 
 Coverage:
 
-<img src="https://github.com/fritx/schema-validator2/raw/master/coverage.png">
+<img src="https://github.com/fritx/schema-validator2/raw/master/coverage.jpeg">
 
 Todo:
 
