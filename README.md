@@ -15,6 +15,7 @@ let { validate } = require('schema-validator2')
 let { ObjectID } = require('mongodb')
 
 let schema = {
+  arr: { type: Array, element: { type: Number } },
   nested: { schema: anotherSchema },
   _id: { type: ObjectID, required: true }
 }
@@ -45,7 +46,6 @@ Coverage:
 
 Todo:
 
-- Array typed
 - Babel build for lower node versions
 - More test cases
 - [Travis CI & Coveralls](https://github.com/avajs/ava/blob/master/docs/recipes/code-coverage.md#hosted-coverage)

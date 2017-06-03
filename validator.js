@@ -51,6 +51,15 @@ function validateProp (k, v, r) {
     if (!isType(v, r.type)) {
       return `'${k}' is not a/an '${r.type.name}'`
     }
+
+    if (r.type === Array) {
+      let r1 = r.element
+      for (let k1 = 0; k1 < v.length; k1++) {
+        let v1 = v[k1]
+        let rs = validateProp(`${k}[${k1}]`, v1, r1)
+        if (rs) return rs
+      }
+    }
   }
   return ''
 }
