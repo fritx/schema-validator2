@@ -32,7 +32,7 @@ let rs = validate({
 
 ```plain
 // Possible results:
-// - rs = undefined
+// - rs = ''
 // - rs = extra keys: ['a', 'b']
 // - rs = 'a' is required
 // - rs = 'a' is not a/an 'Date'

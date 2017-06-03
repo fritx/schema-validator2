@@ -19,34 +19,40 @@ function validate ({ schema, data, partial }) {
     let v = data[k]
     let r = schema[k]
 
-    // v == null 同时包含 null/undefined
-    let isNone = v == null
-    if (isNone) {
-      if (r.required) {
-        return `'${k}' is required`
-      } else {
-        continue
-      }
-    }
+    let rs = validateProp(k, v, r)
+    if (rs) return rs
+  }
+  return ''
+}
 
-    if (r.schema) {
-      let rs = validate({
-        schema: r.schema,
-        data: v
-      })
-      if (rs) {
-        return `'${k}': ${rs}`
-      }
+function validateProp (k, v, r) {
+  // v == null 同时包含 null/undefined
+  let isNone = v == null
+  if (isNone) {
+    if (r.required) {
+      return `'${k}' is required`
     } else {
-      // √ new String('') instanceof String
-      // × 'xyz' instanceof String
-      // 不能只用instanceof
-      // if (!()) {
-      if (!isType(v, r.type)) {
-        return `'${k}' is not a/an '${r.type.name}'`
-      }
+      return '' // 缺省则跳过验证
     }
   }
+
+  if (r.schema) {
+    let rs = validate({
+      schema: r.schema,
+      data: v
+    })
+    if (rs) {
+      return `'${k}': ${rs}`
+    }
+  } else {
+    // √ new String('') instanceof String
+    // × 'xyz' instanceof String
+    // 不能只用instanceof
+    if (!isType(v, r.type)) {
+      return `'${k}' is not a/an '${r.type.name}'`
+    }
+  }
+  return ''
 }
 
 function isType (v, type) {
