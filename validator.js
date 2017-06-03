@@ -3,8 +3,15 @@ let _ = require('lodash')
 exports.validate = validate
 
 function validate ({ schema, data, partial }) {
-  let dKeys = _.keys(data)
   let sKeys = _.keys(schema)
+  for (let k of sKeys) {
+    // 暂不支持 带'.'的key嵌套操作
+    if (k.includes('.')) {
+      throw new Error(`dot keys are not supported: '${k}'`)
+    }
+  }
+
+  let dKeys = _.keys(data)
   let extraDKeys = without(dKeys, sKeys)
   if (extraDKeys.length) {
     return `extra keys: ${extraDKeys}`
@@ -13,9 +20,6 @@ function validate ({ schema, data, partial }) {
   // 如果为整体验证 则遍历的keys扩充至sKeys
   let eKeys = partial ? dKeys : sKeys
   for (let k of eKeys) {
-    if (k.includes('.')) {
-      throw new Error(`keys including '.' are not supported yet: '${k}'`)
-    }
     let v = data[k]
     let r = schema[k]
 
