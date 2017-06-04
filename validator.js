@@ -12,9 +12,10 @@ function validate ({ schema, data, partial }) {
   }
 
   let dKeys = _.keys(data)
-  let extraDKeys = without(dKeys, sKeys)
-  if (extraDKeys.length) {
-    return `extra keys: ${extraDKeys}`
+  let exDKeys = without(dKeys, sKeys)
+  if (exDKeys.length) {
+    let str = exDKeys.map(k => `'${k}'`).join(', ')
+    return `extra keys: ${str}`
   }
 
   // 如果为整体验证 则遍历的keys扩充至sKeys

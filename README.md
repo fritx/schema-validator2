@@ -34,7 +34,7 @@ let rs = validate({
 ```plain
 // Possible results:
 // - rs = ''
-// - rs = extra keys: ['a', 'b']
+// - rs = extra keys: 'a', 'b'
 // - rs = 'a' is required
 // - rs = 'a' is not a/an 'Date'
 // - Error: dot keys are not supported: 'a.b'
