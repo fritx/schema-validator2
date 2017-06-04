@@ -15,12 +15,13 @@ let { validate } = require('schema-validator2')
 let { ObjectID } = require('mongodb')
 
 let schema = {
-  nested: { schema: anotherSchema },
+  nested: { schema: anotherSchema, optional: true },
   arr: { type: Array, element: { type: Number } },
-  _id: { type: ObjectID, required: true }
+  _id: { type: ObjectID }
 }
 
 let data = {
+  arr: [1, 5],
   _id: new ObjectID()
 }
 

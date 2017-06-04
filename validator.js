@@ -34,10 +34,10 @@ function validateProp (k, v, r) {
   // v == null 同时包含 null/undefined
   let isNone = v == null
   if (isNone) {
-    if (r.required) {
-      return `'${k}' is required`
-    } else {
+    if (r.optional) {
       return '' // 缺省则跳过验证
+    } else {
+      return `'${k}' is required`
     }
   }
 

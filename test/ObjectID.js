@@ -3,7 +3,7 @@ let { test } = require('ava')
 let { validate } = require('..')
 
 let schema = {
-  _id: { type: ObjectID, required: true }
+  _id: { type: ObjectID }
 }
 
 // partial: false

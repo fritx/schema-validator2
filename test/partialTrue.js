@@ -2,8 +2,8 @@ let { test } = require('ava')
 let { validate } = require('..')
 
 let schema = {
-  a: { type: String, required: true },
-  b: { type: Number }
+  a: { type: String },
+  b: { type: Number, optional: true }
 }
 
 test(t => {

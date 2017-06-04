@@ -4,7 +4,7 @@ let { validate } = require('..')
 let roleProp = { type: Number }
 
 let userSchema = {
-  roles: { type: Array, element: roleProp, required: true }
+  roles: { type: Array, element: roleProp }
 }
 
 test(t => {
