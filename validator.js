@@ -49,11 +49,15 @@ function validateProp (k, v, r) {
       return `'${k}': ${rs}`
     }
   } else {
-    // √ new String('') instanceof String
-    // × 'xyz' instanceof String
-    // 不能只用instanceof
-    if (!isType(v, r.type)) {
+    // type为构造函数 如'String'
+    if (v.constructor.name !== r.type.name) {
       return `'${k}' is not a/an '${r.type.name}'`
+    }
+    // test为检测函数 如'_.isInteger'
+    if (r.test) {
+      if (!r.test(v)) {
+        return `'${k}' does not match '${r.test.name}'`
+      }
     }
 
     if (r.type === Array) {
@@ -99,20 +103,6 @@ function getStrLen (str) {
   let ec = c - zc
   let elen = ec + zc * 2
   return elen
-}
-
-function isType (v, type) {
-  if (v instanceof type) {
-    return true
-  }
-  if (v != null && v.constructor.name === type.name) {
-    return true
-  }
-  let isX = _[`is${type.name}`]
-  if (isX && isX(v)) {
-    return true
-  }
-  return false
 }
 
 // _.without 必须是 _.without(arr, 1, 2, 3) 的形式

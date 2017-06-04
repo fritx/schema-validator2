@@ -48,7 +48,8 @@ let rs = validate({
 ```js
 let schema = {
   name: { type: String, range: [2, 16] },
-  price: { type: Number, range: [0.5, 99.5], step: 0.5 }
+  price: { type: Number, range: [0.5, 99.5], step: 0.5 },
+  quantity: { type: Number, range: [1, null], test: _.isInteger }
 }
 ```
 
@@ -58,6 +59,7 @@ let schema = {
 // - rs = 'name' is not in range [2, 16]
 // - rs = 'price' is not in range [0.5, 99.5]
 // - rs = 'price' is not by step '0.5'
+// - rs = 'quantity' does not match '_.isInteger'
 ```
 
 Coverage:
