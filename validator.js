@@ -64,9 +64,38 @@ function validateProp (k, v, r) {
         let rs = validateProp(`${k}[${k1}]`, v1, r1)
         if (rs) return rs
       }
+    } else if (r.type === String) {
+      if (r.range) {
+        let [min, max] = r.range
+        let len = getStrLen(v)
+        if (len < min || len > max) {
+          return `'${k}' is not in range [${min}, ${max}]`
+        }
+      }
+    } else if (r.type === Number) {
+      if (r.range) {
+        let [min, max] = r.range
+        if (v < min || v > max) {
+          return `'${k}' is not in range [${min}, ${max}]`
+        }
+      }
+      if (r.step) {
+        if (v % r.step !== 0) {
+          return `'${k}' is not by step '${r.step}'`
+        }
+      }
     }
   }
   return ''
+}
+
+function getStrLen (str) {
+  let c = str.length
+  let es = escape(str)
+  let zc = es.split('%u').length - 1
+  let ec = c - zc
+  let elen = ec + zc * 2
+  return elen
 }
 
 function isType (v, type) {

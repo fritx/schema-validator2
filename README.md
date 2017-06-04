@@ -10,6 +10,8 @@ It requires node >= 7.x.
 npm i -S schema-validator2
 ```
 
+### Schema validation
+
 ```js
 let { validate } = require('schema-validator2')
 let { ObjectID } = require('mongodb')
@@ -41,12 +43,31 @@ let rs = validate({
 // - Error: dot keys are not supported: 'a.b'
 ```
 
+### Value validation
+
+```js
+let schema = {
+  name: { type: String, range: [2, 16] },
+  price: { type: Number, range: [0.5, 99.5], step: 0.5 }
+}
+```
+
+```plain
+// Possible results:
+// - rs = ''
+// - rs = 'name' is not in range [2, 16]
+// - rs = 'price' is not in range [0.5, 99.5]
+// - rs = 'price' is not by step '0.5'
+```
+
 Coverage:
 
-<img src="https://github.com/fritx/schema-validator2/raw/master/coverage.jpeg">
+<img src="https://github.com/fritx/schema-validator2/raw/master/coverage.png">
 
 Todo:
 
+- Value validation
+- Default value??
 - Babel build for lower node versions
 - More test cases
 - [Travis CI & Coveralls](https://github.com/avajs/ava/blob/master/docs/recipes/code-coverage.md#hosted-coverage)
