@@ -64,3 +64,27 @@ test(t => {
   })
   t.regex(rs, /is not by step/)
 })
+
+test(t => {
+  let rs = validate({
+    schema: {
+      price: { type: Number, range: [0.5, null] }
+    },
+    data: {
+      price: 9999
+    }
+  })
+  t.falsy(rs)
+})
+
+test(t => {
+  let rs = validate({
+    schema: {
+      price: { type: Number, range: [null, 99.5] }
+    },
+    data: {
+      price: -9999
+    }
+  })
+  t.falsy(rs)
+})

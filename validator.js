@@ -32,8 +32,7 @@ function validate ({ schema, data, partial }) {
 
 function validateProp (k, v, r) {
   // v == null 同时包含 null/undefined
-  let isNone = v == null
-  if (isNone) {
+  if (_.isNil(v)) {
     if (r.optional) {
       return '' // 缺省则跳过验证
     } else {
@@ -68,14 +67,18 @@ function validateProp (k, v, r) {
       if (r.range) {
         let [min, max] = r.range
         let len = getStrLen(v)
-        if (len < min || len > max) {
+        let isBelow = !_.isNil(min) && len < min
+        let isAbove = !_.isNil(max) && len > max
+        if (isBelow || isAbove) {
           return `'${k}' is not in range [${min}, ${max}]`
         }
       }
     } else if (r.type === Number) {
       if (r.range) {
         let [min, max] = r.range
-        if (v < min || v > max) {
+        let isBelow = !_.isNil(min) && v < min
+        let isAbove = !_.isNil(max) && v > max
+        if (isBelow || isAbove) {
           return `'${k}' is not in range [${min}, ${max}]`
         }
       }
