@@ -102,6 +102,9 @@ function isType (v, type) {
   if (v instanceof type) {
     return true
   }
+  if (v != null && v.constructor.name === type.name) {
+    return true
+  }
   let isX = _[`is${type.name}`]
   if (isX && isX(v)) {
     return true
