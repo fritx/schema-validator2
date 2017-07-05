@@ -87,13 +87,22 @@ function validateProp (k, v, r) {
         }
       }
       if (r.step) {
-        if (v % r.step !== 0) {
+        if (floatMod(v, r.step) !== 0) {
           return `'${k}' is not by step '${r.step}'`
         }
       }
     }
   }
   return ''
+}
+
+// https://stackoverflow.com/questions/3966484/why-does-modulus-operator-return-fractional-number-in-javascript
+function floatMod (v, s) {
+  let dv = (String(v).split('.')[1] || '').length
+  let ds = (String(s).split('.')[1] || '').length
+  let b = Math.max(dv, ds)
+  let m = Math.pow(10, b)
+  return (v * m) % (s * m) / m
 }
 
 function getStrLen (str) {
